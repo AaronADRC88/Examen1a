@@ -10,7 +10,8 @@
             Anteriormente solo habia un textView en este layout
             He creado un contenedor linear para que coexistan textView y el boton ,
             Y he cambiado el ancho del text view para que quepa el boton
-            El ScrollView contiene todo el layout para acceder en caso de que haya necesidad cuando la pantalla este llena
+            El ScrollView contiene
+
 
             -->
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"

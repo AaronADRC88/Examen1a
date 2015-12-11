@@ -1,6 +1,7 @@
 package com.example.android.examen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.examen.dummy.DummyContent;
 
@@ -69,7 +71,11 @@ public class ItemDetailFragment extends Fragment {
                 ItemListFragment frag = (ItemListFragment) getFragmentManager().findFragmentById(R.id.item_list);
                 if (frag == null) {
                     //Se cierra la activity
+                    Intent intentResultado = new Intent();//Declaramos el intent
+                    intentResultado.putExtra("resultado", "Activity Cerrada");//Informacion del intent
+                    getActivity().setResult(Activity.RESULT_OK, intentResultado);//Cargamos el resultado
                     getActivity().finish();
+
                 } else {
                     //Se borra el texto
                     ((TextView) rootView.findViewById(R.id.item_detail)).setText("");

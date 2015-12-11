@@ -1,5 +1,6 @@
 package com.example.android.examen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,8 +36,6 @@ public class ItemListActivity extends AppCompatActivity
      */
     //este es el boolean que dira si el dispositivo esta land o no
     private boolean tumbado;
-
-
 
 
     @Override
@@ -78,6 +77,7 @@ public class ItemListActivity extends AppCompatActivity
      * Callback method from {@link ItemListFragment.Callbacks}
      * indicating that the item with the given ID was selected.
      */
+
     @Override
     public void onItemSelected(String id) {
         if (tumbado) {
@@ -92,14 +92,29 @@ public class ItemListActivity extends AppCompatActivity
                     .replace(R.id.item_detail_container, fragment)
                     .commit();
             //Esta es la toast que saldra al pulsar un item cuando el dispositivo este tumbado
-            Toast.makeText(getApplicationContext(),"tumbado",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "tumbado", Toast.LENGTH_SHORT).show();
 
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, ItemDetailActivity.class);
             detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
+            //llamamos al metodo que devuelve la toast
+            startActivityForResult(detailIntent, 1);
         }
     }
+
+    //Este metodo devolvera la toast al cerrar la activity
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra("resultado");
+                Toast.makeText(ItemListActivity.this, result,
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
 }
