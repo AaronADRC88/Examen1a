@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.examen.dummy.DummyContent;
@@ -57,7 +58,25 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
+
+        //Este es el boton que limpiara la pantalla o cerrara la activity
+        Button button = (Button) rootView.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //en caso de que estea en portrait , solo se carga el Fragment Detail
+                ItemListFragment frag = (ItemListFragment) getFragmentManager().findFragmentById(R.id.item_list);
+                if (frag == null) {
+                    //Se cierra la activity
+                    getActivity().finish();
+                } else {
+                    //Se borra el texto
+                    ((TextView) rootView.findViewById(R.id.item_detail)).setText("");
+                }
+
+            }
+        });
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
